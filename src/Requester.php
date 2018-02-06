@@ -12,7 +12,7 @@ class Requester {
      * @return array It returns an array by default, but also could send a json with the json option enabled
      */
     public static function get($uri,$params=[],$options=[]) {
-        return $this->request('GET',$uri,$params,$options);
+        return self::request('GET',$uri,$params,$options);
     }
     
     /**
@@ -23,7 +23,7 @@ class Requester {
      * @return array It returns an array by default, but also could send a json with the json option enabled
      */
     public static function post($uri,$params=[],$options=[]) {
-        return $this->request('POST',$uri,$params,$options);
+        return self::request('POST',$uri,$params,$options);
     }
     
     /**
