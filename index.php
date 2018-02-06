@@ -17,7 +17,7 @@
         <div class="col-sm-10">
           <h1 align="center">Requester</h1>          
           <hr>                      
-              <form>
+              <form m>
                 <div class="form-row">
                   <div class="form-group col-md-4">
                     <label for="request-method">Method</label>
@@ -33,7 +33,7 @@
                   </div>                  
                   <div class="form-group col-md-8">
                     <label for="request-uri">URI</label>
-                    <input type="text" class="form-control" id="request-uri" aria-describedby="request-uri" placeholder="http://www.uri.com...">                  
+                    <input type="text" class="form-control" id="request-uri" name="request-uri" aria-describedby="request-uri" placeholder="http://www.uri.com...">                  
                   </div>                
                 </div>
                 <div class="form-group">
@@ -56,6 +56,14 @@
         </div>
       </div>
       <div class="col-sm-1"></div>
+      <?php
+        include 'src/Requester.php';
+        if (isset($_REQUEST['request-uri'])) {
+            echo '<hr>';
+            echo '<pre>';
+            print_r(Requester::get($_REQUEST['request-uri']));
+        }
+      ?>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
