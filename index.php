@@ -40,19 +40,25 @@
                   <input type="checkbox" class="form-check-input" id="request-followredirections" name="request-followredirections"<?php if (isset($_REQUEST['request-followredirections']) && $_REQUEST['request-followredirections'] == 1) echo ' checked'; ?> value="1">
                   <label class="form-check-label" for="request-followredirections">Follow redirections</label>
                 </div>          
-                <hr>
-                <h4>Authentication</h4>
-                <hr>
-                <div class="form-group">                  
+                <hr>                
+                <h4>Headers</h4>                
+                <div class="form-group">
+                    <div class="form-row">                      
+                      <div class="col">
+                        <input type="text" class="form-control" name="request-header-keys[]" placeholder="Key...">
+                      </div>
+                      <div class="col">
+                        <input type="text" class="form-control" name="request-header-values[]" placeholder="Value...">
+                      </div>
+                    </div>                                                          
+                </div>                
+                <div class="row">
+                    <div class="col-sm-12" align="right">
+                        <button type="button" class="btn btn-primary btn-sm" title="Add" id="btn-add-header"><i class="fas fa-plus-square"></i> Add</button>          
+                    </div>
                 </div>
                 <hr>
-                <h4>Headers</h4>
-                <hr>
-                <div class="form-group">                  
-                </div>                
-                <hr>
-                <h4>Parameters</h4>
-                <hr>
+                <h4>Parameters</h4>                
                 <div class="form-group">
                     <div class="form-row">                      
                       <div class="col">
@@ -61,8 +67,13 @@
                       <div class="col">
                         <input type="text" class="form-control" name="request-param-values[]" placeholder="Value...">
                       </div>
-                    </div>                  
+                    </div>                                                          
                 </div>                
+                <div class="row">
+                    <div class="col-sm-12" align="right">
+                        <button type="button" class="btn btn-primary btn-sm" title="Add" id="btn-add-param"><i class="fas fa-plus-square"></i> Add</button>          
+                    </div>
+                </div>
                 <hr>
                 <div class="row">                    
                     <div class="col-sm-4">
@@ -70,7 +81,7 @@
                         <button type="button" class="btn btn-outline-primary btn-sm" title="Load"><i class="fas fa-folder-open"></i> Load</button>          
                     </div>
                     <div class="col-sm-8" align="right">                    
-                        <button type="submit" class="btn btn-primary btn-lg" title="Send"><i class="fas fa-share-square"></i> Send</button>
+                        <button type="submit" class="btn btn-success btn-lg" title="Send"><i class="fas fa-share-square"></i> Send</button>
                     </div>
                 </div>
                 <div>                                        
