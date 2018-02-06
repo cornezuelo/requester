@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="ISO-8859-1"> 
+    <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -36,25 +36,36 @@
                     <input type="text" class="form-control" id="request-uri" name="request-uri" aria-describedby="request-uri" placeholder="http://www.uri.com...">                  
                   </div>                
                 </div>
-                <div class="form-check">
+                <div class="form-check form-check-inline">
                   <input type="checkbox" class="form-check-input" id="request-followredirections" name="request-followredirections" value="1">
                   <label class="form-check-label" for="request-followredirections">Follow redirections</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input type="checkbox" class="form-check-input" id="request-utf8encode" name="request-utf8encode" value="1">
+                  <label class="form-check-label" for="request-utf8encode">UTF-8 Encode Output</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input type="checkbox" class="form-check-input" id="request-utf8decode" name="request-utf8encode" value="1">
+                  <label class="form-check-label" for="request-utf8decode">UTF-8 Decode Output</label>
                 </div>          
                 <hr>                
                 <h4>Headers</h4>                
                 <div class="form-group">
                     <div class="form-row">                      
                       <div class="col">
-                        <input type="text" class="form-control" name="request-header-keys[]" placeholder="Key...">
+                        <input type="text" class="form-control request-params-keys" name="request-header-keys[]" placeholder="Key...">
                       </div>
                       <div class="col">
-                        <input type="text" class="form-control" name="request-header-values[]" placeholder="Value...">
+                        <input type="text" class="form-control request-param-values" name="request-header-values[]" placeholder="Value...">
+                      </div>
+                      <div class="col-auto">
+                          <button type="button" class="btn btn-outline-danger btn btn-remove-headers" title="Remove"><i class="fas fa-trash-alt"></i></button>          
                       </div>
                     </div>                                                          
                 </div>                
                 <div class="row">
                     <div class="col-sm-12" align="right">
-                        <button type="button" class="btn btn-primary btn-sm" title="Add" id="btn-add-header"><i class="fas fa-plus-square"></i> Add</button>          
+                        <button type="button" class="btn btn-primary btn" title="Add" id="btn-add-header"><i class="fas fa-plus-square"></i> Add</button>          
                     </div>
                 </div>
                 <hr>
@@ -62,16 +73,19 @@
                 <div class="form-group">
                     <div class="form-row">                      
                       <div class="col">
-                        <input type="text" class="form-control" name="request-param-keys[]" placeholder="Key...">
+                        <input type="text" class="form-control request-params-keys" name="request-param-keys[]" placeholder="Key...">
                       </div>
                       <div class="col">
-                        <input type="text" class="form-control" name="request-param-values[]" placeholder="Value...">
+                        <input type="text" class="form-control request-param-values" name="request-param-values[]" placeholder="Value...">
+                      </div>
+                      <div class="col-auto">
+                          <button type="button" class="btn btn-outline-danger btn btn-remove-params" title="Remove"><i class="fas fa-trash-alt"></i></button>          
                       </div>
                     </div>                                                          
                 </div>                
                 <div class="row">
                     <div class="col-sm-12" align="right">
-                        <button type="button" class="btn btn-primary btn-sm" title="Add" id="btn-add-param"><i class="fas fa-plus-square"></i> Add</button>          
+                        <button type="button" class="btn btn-primary btn" title="Add" id="btn-add-param"><i class="fas fa-plus-square"></i> Add</button>          
                     </div>
                 </div>
                 <hr>
@@ -83,8 +97,7 @@
                     <div class="col-sm-8" align="right">                    
                         <button type="submit" class="btn btn-success btn-lg" id="btn-submit" title="Send"><i class="fas fa-share-square"></i> Send</button>
                     </div>
-                </div>
-                <div>                                        
+                </div>                
               </form>                                         
         </div>
       </div>
@@ -104,7 +117,7 @@
            event.preventDefault(); 
            $('#div-content').html('<div align="center"><i class="fas fa-cog fa-spin fa-10x"></i></div>');
            $('#btn-submit').attr('disabled',true);
-           var jqxhr = $.post('controller.php', $('#form-main').serialize());
+           var jqxhr = $.post('src/Controller.php', $('#form-main').serialize());
            jqxhr.always(function(e) {
               $('#div-content').html('<textarea class="form-control" rows="10" style="width:100%" id="textarea-content">'+e+'</textarea>');
               $('#btn-submit').attr('disabled',false);

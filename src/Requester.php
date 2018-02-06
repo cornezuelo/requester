@@ -65,6 +65,14 @@ class Requester {
         $getinfo = curl_getinfo($ch);
         curl_close($ch);      
         
+        if (isset($options['utf8_encode'])) {
+            $output = utf8_encode($output);
+        }        
+        
+        if (isset($options['utf8_decode'])) {
+            $output = utf8_decode($output);
+        }
+        
         if ($getinfo['http_code'] != 200) {
             return ['result' => false, 'info' => $getinfo, 'output' => $output];            
         }
