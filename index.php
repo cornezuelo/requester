@@ -50,39 +50,43 @@
                 </div>          
                 <hr>                
                 <h4>Headers</h4>                
-                <div class="form-group">
-                    <div class="form-row">                      
-                      <div class="col">
-                        <input type="text" class="form-control request-params-keys" name="request-header-keys[]" placeholder="Key...">
-                      </div>
-                      <div class="col">
-                        <input type="text" class="form-control request-param-values" name="request-header-values[]" placeholder="Value...">
-                      </div>
-                      <div class="col-auto">
-                          <button type="button" class="btn btn-outline-danger btn btn-remove-headers" title="Remove"><i class="fas fa-trash-alt"></i></button>          
-                      </div>
-                    </div>                                                          
-                </div>                
+                <div id="div-header">
+                    <div class="form-group" id="template-header" style="display:none">
+                        <div class="form-row">                      
+                          <div class="col">
+                            <input type="text" class="form-control request-header-keys" name="request-header-keys[]" placeholder="Key...">
+                          </div>
+                          <div class="col">
+                            <input type="text" class="form-control request-header-values" name="request-header-values[]" placeholder="Value...">
+                          </div>
+                          <div class="col-auto">
+                              <button type="button" class="btn btn-outline-danger btn btn-remove-headers" title="Remove"><i class="fas fa-trash-alt"></i></button>          
+                          </div>
+                        </div>                                                          
+                    </div>             
+                </div>
                 <div class="row">
                     <div class="col-sm-12" align="right">
                         <button type="button" class="btn btn-primary btn" title="Add" id="btn-add-header"><i class="fas fa-plus-square"></i> Add</button>          
                     </div>
                 </div>
                 <hr>
-                <h4>Parameters</h4>                
-                <div class="form-group">
-                    <div class="form-row">                      
-                      <div class="col">
-                        <input type="text" class="form-control request-params-keys" name="request-param-keys[]" placeholder="Key...">
-                      </div>
-                      <div class="col">
-                        <input type="text" class="form-control request-param-values" name="request-param-values[]" placeholder="Value...">
-                      </div>
-                      <div class="col-auto">
-                          <button type="button" class="btn btn-outline-danger btn btn-remove-params" title="Remove"><i class="fas fa-trash-alt"></i></button>          
-                      </div>
-                    </div>                                                          
-                </div>                
+                <h4>Parameters</h4>  
+                <div id="div-param">
+                    <div class="form-group" id="template-param" style="display:none">
+                        <div class="form-row">                      
+                          <div class="col">
+                            <input type="text" class="form-control request-params-keys" name="request-params-keys[]" placeholder="Key...">
+                          </div>
+                          <div class="col">
+                            <input type="text" class="form-control request-param-values" name="request-params-values[]" placeholder="Value...">
+                          </div>
+                          <div class="col-auto">
+                              <button type="button" class="btn btn-outline-danger btn btn-remove-params" title="Remove"><i class="fas fa-trash-alt"></i></button>          
+                          </div>
+                        </div>                                                          
+                    </div>              
+                </div>
                 <div class="row">
                     <div class="col-sm-12" align="right">
                         <button type="button" class="btn btn-primary btn" title="Add" id="btn-add-param"><i class="fas fa-plus-square"></i> Add</button>          
@@ -117,12 +121,36 @@
            event.preventDefault(); 
            $('#div-content').html('<div align="center"><i class="fas fa-cog fa-spin fa-10x"></i></div>');
            $('#btn-submit').attr('disabled',true);
-           var jqxhr = $.post('src/Controller.php', $('#form-main').serialize());
-           jqxhr.always(function(e) {
-              $('#div-content').html('<textarea class="form-control" rows="10" style="width:100%" id="textarea-content">'+e+'</textarea>');
+           var jqxhr = $.post('src/Controller.php', $('#form-main').serialize(), function(){}, 'json');
+           jqxhr.always(function(e) {              
+              if (e.result == true) {
+                var resultado = '<h5 style="color:green">HTTP Code '+e.info.http_code+'</h5>';                                  
+              } else {
+                var resultado = '<h5 style="color:red">HTTP Code '+e.info.http_code+'</h5>';                                    
+              }
+                  
+              $('#div-content').html(resultado+'<textarea class="form-control" rows="15" style="width:100%" id="textarea-content">'+e.output+'</textarea>');
               $('#btn-submit').attr('disabled',false);
            });
-        });        
+        });
+        
+        $('#btn-add-param').click(function (e) {
+            var cloned = $( "#template-param" ).clone(true).appendTo( "#div-param" );
+            cloned.show();
+        });
+        
+        $('#btn-add-header').click(function (e) {
+            var cloned = $( "#template-header" ).clone(true).appendTo( "#div-header" );
+            cloned.show();
+        });
+        
+        $('.btn-remove-params').on('click',function(e) {            
+            $(this).parent().parent().parent().remove();
+        });
+        
+        $('.btn-remove-headers').on('click',function(e) {
+            $(this).parent().parent().parent().remove();
+        });
     </script>    
   </body>
 </html>

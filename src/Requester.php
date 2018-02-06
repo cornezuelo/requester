@@ -47,15 +47,24 @@ class Requester {
             }
         }
         
+        if (isset($options['headers']) && !empty($options['headers'])) {
+            $aux_headers = [];
+            foreach ($options['headers'] as $k_h => $v_h) {
+                $aux_headers[] = $k_h.': '.$v_h;
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $aux_headers);
+        }
+        
         if ($method == "POST") {
             curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS,
-                        http_build_query($params));
+            if (!empty($params)) {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
+            }
         } elseif ($method != "GET") {
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         }
         
-        if ($method == 'GET') {
+        if ($method == 'GET' && !empty($params)) {
             $uri .= '?'.http_build_query($params);
         }
         
@@ -74,10 +83,10 @@ class Requester {
         }
         
         if ($getinfo['http_code'] != 200) {
-            return ['result' => false, 'info' => $getinfo, 'output' => $output];            
+            $return = ['result' => false, 'info' => $getinfo, 'output' => htmlentities($output)];            
         }
-        else $return = ['result' => true, 'info' => $getinfo, 'output' => $output];            
-        
+        else $return = ['result' => true, 'info' => $getinfo, 'output' => htmlentities($output)];            
+                
         if (isset($options['json'])) {
             $return = json_encode($return);
         }
