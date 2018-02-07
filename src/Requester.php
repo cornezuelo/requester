@@ -80,7 +80,11 @@ class Requester {
         }
         
         if ($method == 'GET' && !empty($httpquery)) {
-            $uri .= '?'.$httpquery;
+            if (empty(parse_url($uri,PHP_URL_QUERY))) {
+                $uri .= '?'.$httpquery;
+            } else {
+                $uri .= '&'.$httpquery;
+            }
         }
         
         curl_setopt($ch, CURLOPT_URL, $uri);
