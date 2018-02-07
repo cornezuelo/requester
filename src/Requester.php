@@ -70,7 +70,7 @@ class Requester {
             $httpquery = http_build_query($params);
         }
         
-        if ($method == "POST") {
+        if ($method == "POST") {            
             curl_setopt($ch, CURLOPT_POST, 1);
             if (!empty($httpquery)) {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $httpquery);
@@ -96,15 +96,19 @@ class Requester {
         if (!empty($aux_headers)) {            
             $getinfo['headers'] = implode(', ',$aux_headers);
         }
-        curl_close($ch);                      
-        
+        curl_close($ch);                              
         if ($getinfo['http_code'] != 200) {
             $return = ['result' => false, 'info' => $getinfo, 'output' => $output];            
         }
         else $return = ['result' => true, 'info' => $getinfo, 'output' => $output];            
-                
+        
         if (isset($options['json'])) {
-            $return = json_encode($return);
+            $aux = json_encode($return);        
+            if ($aux === false && json_last_error() == JSON_ERROR_UTF8) {
+                $output = utf8_encode($output);
+                $aux = json_encode(['result' => $return['result'], 'info' => $return['info'], 'output' => $output]);
+            }
+            $return = $aux;            
         }
         return $return;
     }

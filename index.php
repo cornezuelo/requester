@@ -167,13 +167,15 @@
     <script>        
         $( "#form-main" ).submit(function( event ) {
            event.preventDefault(); 
+           $('#nav-curlinfo').html('');
+           $('#nav-response').html('');
            _html = $("#div-content").html();
            $('#div-content').html('<div align="center"><i class="fas fa-cog fa-spin fa-10x"></i></div>');
            $('#btn-submit').attr('disabled',true);
            var jqxhr = $.post('src/Controller.php', $('#form-main').serialize(), function(){}, 'json');
            jqxhr.always(function(e) {               
-            $('#div-content').html(_html);
-            if (typeof(e.output) !== 'undefined') {    
+            $('#div-content').html(_html);            
+            if (typeof(e.output) !== 'undefined') {                
                 var _info = '<br><ul>';                
                 for (var prop in e.info) {                    
                     _info += '<li><b>'+prop+'</b>: '+e.info[prop]+'</li>'                    
@@ -181,9 +183,9 @@
                 _info += '</ul>';                
                 $('#nav-curlinfo').html(_info);
                 $('#nav-response').html('<br><textarea class="form-control" rows="15" style="width:100%" id="textarea-content">'+e.output+'</textarea>');                
-            } else {
-                $('#div-curlinfo').html('<br><h3 align="center">Oooppssss... Error on json response! Maybe enconding problem?</h3>');
-                $('#div-response').html('<br><h3 align="center">Oooppssss... Error on json response! Maybe enconding problem?</h3>');
+            } else {                
+                $('#nav-curlinfo').html('<br><h3 align="center">Oooppssss... Error on json response! Maybe enconding problem?</h3>');
+                $('#nav-response').html('<br><h3 align="center">Oooppssss... Error on json response! Maybe enconding problem?</h3><textarea class="form-control" rows="15" style="width:100%" id="textarea-content">'+e.responseText+'</textarea>');
             }                        
             $('#btn-submit').attr('disabled',false);
            });
