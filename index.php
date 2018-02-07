@@ -7,7 +7,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
+    <style>
+        .response {
+            background: #212121 !important;
+            color: #E3F3FF !important;
+        }
+    </style>
     <title>Requester</title>
   </head>
   <body>    
@@ -182,10 +187,10 @@
                 }                
                 _info += '</ul>';                
                 $('#nav-curlinfo').html(_info);
-                $('#nav-response').html('<br><textarea class="form-control" rows="15" style="width:100%" id="textarea-content">'+e.output+'</textarea>');                
+                $('#nav-response').html('<br><textarea class="form-control response" rows="25" style="width:100%" id="textarea-content" onclick="$(this).select()">'+e.output+'</textarea>');                
             } else {                
                 $('#nav-curlinfo').html('<br><h3 align="center">Oooppssss... Error on json response! Maybe enconding problem?</h3>');
-                $('#nav-response').html('<br><h3 align="center">Oooppssss... Error on json response! Maybe enconding problem?</h3><textarea class="form-control" rows="15" style="width:100%" id="textarea-content">'+e.responseText+'</textarea>');
+                $('#nav-response').html('<br><h3 align="center">Oooppssss... Error on json response! Maybe enconding problem?</h3><textarea class="form-control response" rows="25" style="width:100%" id="textarea-content">'+e.responseText+'</textarea>');
             }                        
             $('#btn-submit').attr('disabled',false);
            });
@@ -215,7 +220,7 @@
         
         $('#nav-params-httpquery-tab').click(function(e) {
             $('#type-params').val('httpquery');            
-        });
+        });                
     </script>    
   </body>
 </html>
