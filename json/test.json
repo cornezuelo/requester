@@ -1,0 +1,1 @@
+{"request-method":"POST","request-uri":"www.test.com","request-followredirections":"1","request-header-keys":["","test"],"request-header-values":["","header"],"type-params":"httpquery","request-params-keys":["","a"],"request-params-values":["","b"],"textarea-params-httpquery-content":"a&b"}
