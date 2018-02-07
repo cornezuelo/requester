@@ -7,6 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/datatables.min.css">
     <style>
         .response {
             background: #212121 !important;
@@ -222,6 +223,7 @@
     <script src="js/popper.min.js"></script>
     <script defer src="js/fontawesome.all.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/datatables.min.js"></script>
     <script>        
         $( "#form-main" ).submit(function( event ) {
            event.preventDefault(); 
