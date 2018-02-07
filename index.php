@@ -134,8 +134,8 @@
                 <hr>
                 <div class="row">                    
                     <div class="col-sm-4">
-                        <button type="button" class="btn btn-outline-primary btn-sm" title="Save" disabled><i class="fas fa-save"></i> Save</button>          
-                        <button type="button" class="btn btn-outline-primary btn-sm" title="Load" disabled><i class="fas fa-folder-open"></i> Load</button>          
+                        <button type="button" class="btn btn-outline-primary btn-sm" title="Save" data-toggle="modal" data-target="#saveModal"><i class="fas fa-save"></i> Save</button>          
+                        <button type="button" class="btn btn-outline-primary btn-sm" title="Load" data-toggle="modal" data-target="#loadModal"><i class="fas fa-folder-open"></i> Load</button>          
                     </div>
                     <div class="col-sm-8" align="right">                    
                         <button type="submit" class="btn btn-success btn-lg" id="btn-submit" title="Send"><i class="fas fa-share-square"></i> Send</button>
@@ -163,11 +163,64 @@
             </div>
         </div>
     </div>
+    
+    <!-- Modal Save -->
+    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Save Request</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="form-group row">
+              <label class="col-form-label col-sm-1" for="save-title">Title</label>
+              <div class="col-sm-11">
+                <input type="text" class="form-control" id="save-title" placeholder="Request example #3...">                           
+              </div>
+            </form>            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+            <button type="button" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal Load -->
+    <div class="modal fade" id="loadModal" tabindex="-1" role="dialog" aria-labelledby="lo<xModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Load Request</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="form-group row">
+              <label class="col-form-label col-sm-1" for="save-title">Title</label>
+              <div class="col-sm-11">
+                <input type="text" class="form-control" id="save-title" placeholder="Request example #3...">                           
+              </div>
+            </form>            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+            <button type="button" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script defer src="js/fontawesome.all.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>        
         $( "#form-main" ).submit(function( event ) {
