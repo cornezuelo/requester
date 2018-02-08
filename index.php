@@ -52,6 +52,10 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'load' && isset($_REQUE
                   <input type="checkbox" class="form-check-input" id="request-followredirections" name="request-followredirections" value="1"<?php if (isset($load) && isset($load['request-followredirections']) && $load['request-followredirections'] == 1) { echo ' checked'; }?>>
                   <label class="form-check-label" for="request-followredirections">Follow redirections</label>
                 </div>                
+                <div class="form-check form-check-inline">
+                  <input type="checkbox" class="form-check-input" id="request-jsondecodeoutput" name="request-jsondecodeoutput" value="1"<?php if (isset($load) && isset($load['request-jsondecodeoutput']) && $load['request-jsondecodeoutput'] == 1) { echo ' checked'; }?>>
+                  <label class="form-check-label" for="request-jsondecodeoutput">JSON Decode Output</label>
+                </div>                
                 <hr>                
                 <h4>Headers</h4>                
                 <div id="div-header">

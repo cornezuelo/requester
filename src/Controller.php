@@ -12,6 +12,9 @@ switch ($_REQUEST['action']) {
             if (isset($data['request-followredirections'])) {
                 $options['setopt'][CURLOPT_FOLLOWLOCATION] = 1;
             }    
+            if (isset($data['request-jsondecodeoutput'])) {
+                $options['jsondecode_output'] = 1;
+            }
             if (isset($data['request-header-keys']) && !empty($data['request-header-keys'])) {                
                foreach ($data['request-header-keys'] as $k => $v) {
                    if (!empty($v) && isset($data['request-header-values'][$k])) {
@@ -30,7 +33,7 @@ switch ($_REQUEST['action']) {
             if ($data['type-params'] == 'httpquery' && !empty($data['textarea-params-httpquery-content'])) {
                 $options['httpquery'] = $data['textarea-params-httpquery-content'];
             }            
-            $res = Requester::request($data['request-method'],$data['request-uri'],$params,$options);                  
+            $res = Requester::request($data['request-method'],$data['request-uri'],$params,$options);                         
             print_r($res);die();    
         }    
         break;

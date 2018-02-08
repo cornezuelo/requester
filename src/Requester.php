@@ -101,10 +101,20 @@ class Requester {
             $getinfo['headers'] = implode(', ',$aux_headers);
         }
         curl_close($ch);                              
+        
+        if (isset($options['jsondecode_output'])) {
+            $aux = @json_decode($output);
+            if ($aux === null && json_last_error() !== JSON_ERROR_NONE) {
+                $output = 'JSON Decode Error: '.json_last_error_msg();
+            } else {
+                $output = print_r($aux,true);
+            }
+        }
+        
         if ($getinfo['http_code'] != 200) {
             $return = ['result' => false, 'info' => $getinfo, 'output' => $output];            
         }
-        else $return = ['result' => true, 'info' => $getinfo, 'output' => $output];            
+        else $return = ['result' => true, 'info' => $getinfo, 'output' => $output];                            
         
         if (isset($options['json'])) {
             $aux = json_encode($return);        
