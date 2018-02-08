@@ -5,17 +5,17 @@ if (!isset($_REQUEST['action'])) {
 }
 switch ($_REQUEST['action']) {
     case 'request':        
-        parse_str($_REQUEST['data'],$data);        
+        parse_str($_REQUEST['data'],$data);                        
         if (isset($data['request-uri'])) {        
             $options = ['json' => 1];
             $params = [];
             if (isset($data['request-followredirections'])) {
                 $options['setopt'][CURLOPT_FOLLOWLOCATION] = 1;
             }    
-            if (isset($data['request-header-keys']) && !empty($data['request-header-keys'])) {
+            if (isset($data['request-header-keys']) && !empty($data['request-header-keys'])) {                
                foreach ($data['request-header-keys'] as $k => $v) {
-                   if (!empty($v) && isset($_REQUEST['request-header-values'][$k])) {
-                       $options['headers'][$v] = $_REQUEST['request-header-values'][$k];
+                   if (!empty($v) && isset($data['request-header-values'][$k])) {
+                       $options['headers'][$v] = $data['request-header-values'][$k];
                    }
                } 
             }
@@ -29,8 +29,7 @@ switch ($_REQUEST['action']) {
 
             if ($data['type-params'] == 'httpquery' && !empty($data['textarea-params-httpquery-content'])) {
                 $options['httpquery'] = $data['textarea-params-httpquery-content'];
-            }
-
+            }            
             $res = Requester::request($data['request-method'],$data['request-uri'],$params,$options);                  
             print_r($res);die();    
         }    
