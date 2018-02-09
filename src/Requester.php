@@ -70,13 +70,16 @@ class Requester {
             $httpquery = http_build_query($params);
         }
         
-        if ($method == "POST") {            
+        if ($method == "POST") {
             curl_setopt($ch, CURLOPT_POST, 1);
+        }
+        
+        if ($method == "POST" || $method = "PUT") {                        
             if (!empty($httpquery)) {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $httpquery);
             }
         } elseif ($method != "GET") {
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         }
         
         if ($method == 'GET' && !empty($httpquery)) {
