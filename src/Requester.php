@@ -53,6 +53,20 @@ class Requester {
             }
         }
         
+        if (isset($options['timeout'])) {
+            curl_setopt($ch, CURLOPT_TIMEOUT, $options['timeout']); //timeout in seconds
+        }
+        
+        if (isset($options['connect_timeout'])) {
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $options['connect_timeout']);
+        }
+        
+        if (isset($options['keep_alive'])) {
+            curl_setopt($ch, CURLOPT_TCP_KEEPALIVE, 1);
+            curl_setopt($ch, CURLOPT_TCP_KEEPIDLE, $options['keep_alive']);
+            curl_setopt($ch, CURLOPT_TCP_KEEPINTVL, 15);
+        }
+        
         if (isset($options['headers']) && !empty($options['headers'])) {
             $aux_headers = [];
             foreach ($options['headers'] as $k_h => $v_h) {
@@ -94,6 +108,16 @@ class Requester {
         
         $start = microtime(true); 
         if (isset($opt['bg']) && $opt['bg'] == 1) {
+            $extra_curl = '';
+            if (isset($options['timeout'])) {
+                $extra_curl .= ' --max-time '.$options['timeout'];
+            }
+            if (isset($options['connect_timeout'])) {
+                $extra_curl .= ' --connect-timeout '.$options['connect_timeout'];
+            }
+            if (isset($options['keep_alive'])) {
+                $extra_curl .= ' --keepalive-time '.$options['keep_alive'];
+            }
             $output = curl_exec('curl -s "'.$uri.'" > /dev/null 2>&1 &');
         } else {
             $output = curl_exec($ch);        
