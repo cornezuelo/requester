@@ -93,7 +93,11 @@ class Requester {
         curl_setopt($ch, CURLOPT_URL, $uri);
         
         $start = microtime(true); 
-        $output = curl_exec($ch);        
+        if (isset($opt['bg']) && $opt['bg'] == 1) {
+            $output = curl_exec('curl -s "'.$uri.'" > /dev/null 2>&1 &');
+        } else {
+            $output = curl_exec($ch);        
+        }
         $end = (microtime(true) - $start);
         $getinfo = curl_getinfo($ch);
         $getinfo['curl_exec_timing_ms'] = $end;
