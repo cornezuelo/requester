@@ -118,7 +118,7 @@ class Requester {
             if (isset($options['keep_alive'])) {
                 $extra_curl .= ' --keepalive-time '.$options['keep_alive'];
             }
-            $output = curl_exec('curl -s "'.$uri.'" > /dev/null 2>&1 &');
+            $output = curl_exec('curl -s'.$extra_curl.' "'.$uri.'" > /dev/null 2>&1 &');
         } else {
             $output = curl_exec($ch);        
         }
