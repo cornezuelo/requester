@@ -3,6 +3,7 @@
  * Class to send curl requests
  * @author Oscar Aviles <emeeseka01@gmail.com>
  */
+namespace AppBundle\Util;
 class Requester {
     /**
      * Performs a get curl petition
@@ -118,7 +119,15 @@ class Requester {
             if (isset($options['keep_alive'])) {
                 $extra_curl .= ' --keepalive-time '.$options['keep_alive'];
             }
-            $output = shell_exec('curl -s'.$extra_curl.' "'.$uri.'" > /dev/null 2>&1 &');
+            if (isset($options['headers'])) {
+                foreach ($options['headers'] as $k => $v) {
+                    $extra_curl .= ' -H "'.$k.': '.$v.'"';
+                }
+                
+            }
+            $curl = 'curl -s'.$extra_curl.' "'.$uri.'" > /dev/null 2>&1 &';
+            $getinfo['curl'] = $curl;
+            $output = shell_exec($curl);
         } else {
             $output = curl_exec($ch);        
         }
