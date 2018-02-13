@@ -107,7 +107,7 @@ class Requester {
         curl_setopt($ch, CURLOPT_URL, $uri);
         
         $start = microtime(true); 
-        if (isset($opt['bg']) && $opt['bg'] == 1) {
+        if (isset($options['bg']) && $options['bg'] == 1) {
             $extra_curl = '';
             if (isset($options['timeout'])) {
                 $extra_curl .= ' --max-time '.$options['timeout'];
@@ -118,7 +118,7 @@ class Requester {
             if (isset($options['keep_alive'])) {
                 $extra_curl .= ' --keepalive-time '.$options['keep_alive'];
             }
-            $output = curl_exec('curl -s'.$extra_curl.' "'.$uri.'" > /dev/null 2>&1 &');
+            $output = shell_exec('curl -s'.$extra_curl.' "'.$uri.'" > /dev/null 2>&1 &');
         } else {
             $output = curl_exec($ch);        
         }
