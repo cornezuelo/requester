@@ -125,8 +125,7 @@ class Requester {
                 }
                 
             }
-            $curl = 'curl -s'.$extra_curl.' "'.$uri.'" > /dev/null 2>&1 &';
-            $getinfo['curl'] = $curl;
+            $curl = 'curl -s'.$extra_curl.' "'.$uri.'" > /dev/null 2>&1 &';            
             $output = shell_exec($curl);
         } else {
             $output = curl_exec($ch);        
@@ -140,6 +139,10 @@ class Requester {
         if (!empty($aux_headers)) {            
             $getinfo['headers'] = implode(', ',$aux_headers);
         }
+        if (isset($curl) && !empty($curl)) {
+            $getinfo['curl'] = $curl;
+        }
+        
         curl_close($ch);                              
         
         if (isset($options['jsondecode_output'])) {
