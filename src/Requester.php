@@ -3,7 +3,6 @@
  * Class to send curl requests
  * @author Oscar Aviles <emeeseka01@gmail.com>
  */
-namespace AppBundle\Util;
 class Requester {
     /**
      * Performs a get curl petition
