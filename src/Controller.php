@@ -41,13 +41,18 @@ switch ($_REQUEST['action']) {
         createRoute('../json');
         $path = '../json/'.$_REQUEST['title'].'.json';
         if (empty($_REQUEST['title'])) {
-            $return = ['result' => false, 'error' => 'The file name can\'t be empty.'];
+            $return = ['result' => false, 'error' => '<span style="color:red"><b>Error!</b> The file name can\'t be empty.</span>'];
         }
-        elseif (file_exists($path)) {
-            $return = ['result' => false, 'error' => 'The file name already exists.'];
-        } else {
+        else {
+            if (file_exists($path)) {
+                $pathaux = $path.'.'.date('YmdHis').'.bkp';
+                copy($path,$pathaux);
+                $msg = '<span style="color:#F26D00"><b>Warning!</b> The file name already existed and was overwritted.<br>A copy was made as <a href="'.str_replace('../json/', 'json/', $pathaux).'" target="_blank">'.str_replace('../json/', '', $pathaux).'</a> just in case of recovery.</span>';
+            } else {
+                $msg = '<span style="color:green"><b>OK!</b> Saved succesfully!</span>';
+            }
             file_put_contents($path, $_REQUEST['data']);
-            $return = ['result' => true];
+            $return = ['result' => true, 'error' => $msg];
         }
         echo json_encode($return); die();
         break;

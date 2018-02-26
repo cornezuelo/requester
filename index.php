@@ -45,7 +45,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'load' && isset($_REQUE
                   </div>                  
                   <div class="form-group col-md-8">
                     <label for="request-uri">URI</label>
-                    <input type="text" class="form-control" id="request-uri" name="request-uri" aria-describedby="request-uri" placeholder="http://www.uri.com..."<?php if (isset($load) && isset($load['request-uri'])) { echo ' value="'.$options['request-uri'].'"'; }?>>                  
+                    <input type="text" class="form-control" id="request-uri" name="request-uri" aria-describedby="request-uri" placeholder="http://www.uri.com..."<?php if (isset($load) && isset($load['request-uri'])) { echo ' value="'.$load['request-uri'].'"'; }?>>                  
                   </div>                
                 </div>
                 <div class="form-check form-check-inline">
@@ -328,14 +328,18 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'load' && isset($_REQUE
             jqxhr.always(function(e) {
                 if (typeof(e.result) !== 'undefined') {
                     if (e.result === true) {
-                        $('#result-save').html('<b style="color:green">Saved succesfully!</b>');
+                        if (typeof(e.error) === 'undefined') {
+                            $('#result-save').html('<span style="color:green"><b>OK!</b> Saved succesfully!</span>');
+                        } else {
+                            $('#result-save').html(e.error);
+                        }
                     } else if (typeof(e.error) === 'undefined') {
-                        $('#result-save').html('<b style="color:red">Undefined error at saving!</b>');
+                        $('#result-save').html('<span style="color:red"><b>Error!</b> Undefined error at saving!</span>');
                     } else {
-                        $('#result-save').html('<b style="color:red">Error saving: '+e.error+'</b>');
+                        $('#result-save').html(e.error);
                     }
                 } else {
-                    $('#result-save').html('<b style="color:red">Error on response from controller!</b>');
+                    $('#result-save').html('<span style="color:red"><b>Error!</b> Error on response from controller!</span>');
                 }                                
             });
         });        
