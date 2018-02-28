@@ -165,9 +165,10 @@ class Requester {
         
         if (isset($options['jsondecode_output'])) {
             $aux = @json_decode($output);
+            $output_copy = $output;
             if ($aux === null && json_last_error() !== JSON_ERROR_NONE) {
                 $output = 'JSON Decode Error: '.json_last_error_msg();
-                $output .= '<h4>Response</h4><pre>'.print_r($output,true).'</pre>';
+                $output .= '<h4>Response</h4><pre>'.print_r($output_copy,true).'</pre>';
             } else {
                 $output = print_r($aux,true);
             }
