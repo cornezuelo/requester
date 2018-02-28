@@ -53,6 +53,10 @@ class Requester {
             }
         }
         
+        if (isset($options['follow'])) {
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        }
+        
         if (isset($options['timeout'])) {
             curl_setopt($ch, CURLOPT_TIMEOUT, $options['timeout']); //timeout in seconds
         }
@@ -124,7 +128,22 @@ class Requester {
                 }
                 
             }
-            $curl = 'curl -s'.$extra_curl.' "'.$uri.'" > /dev/null 2>&1 &';            
+            if (isset($options['follow'])) {
+                $extra_curl .= " -L";
+            }
+            
+            if ($method == "POST") {                                  
+                $extra_curl .= " -X \"POST\"";                                   
+                if (!empty($httpquery)) {
+                    $uid = uniqid();
+                    file_put_contents('/tmp/'.$uid,$httpquery);        
+                }                
+            }            
+            $curl = 'curl -s '.$extra_curl.' "'.$uri.'"';
+            if ($method == "POST" && !empty($httpquery)) {
+                $curl .= " -k -d @- < /tmp/".$uid;
+            }
+            $curl .= ' > /dev/null 2>&1 &';            
             $output = shell_exec($curl);
         } else {
             $output = curl_exec($ch);        
