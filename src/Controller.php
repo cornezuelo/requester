@@ -10,7 +10,7 @@ switch ($_REQUEST['action']) {
             $options = ['json' => 1];
             $params = [];
             if (isset($data['request-followredirections'])) {
-                $options['setopt'][CURLOPT_FOLLOWLOCATION] = 1;
+                $options['follow'] = 1;
             }    
             if (isset($data['request-jsondecodeoutput'])) {
                 $options['jsondecode_output'] = 1;
