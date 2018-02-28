@@ -164,7 +164,7 @@ class Requester {
         curl_close($ch);                              
         
         if (isset($options['jsondecode_output'])) {
-            $aux = @json_decode($output);
+            $aux = @json_decode($output,true);
             $output_copy = $output;
             if ($aux === null && json_last_error() !== JSON_ERROR_NONE) {
                 $output = 'JSON Decode Error: '.json_last_error_msg();
