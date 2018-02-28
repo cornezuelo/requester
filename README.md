@@ -10,6 +10,7 @@ You can use different options passing them as an array to the Requester class. T
 - **connect_timeout:** Connection timeout in seconds
 - **keep_alive:** Activates CURLOPT_TCP_KEEPALIVE, with an interval of 15
 - **headers:** An array of extra headers to send *(For example, headers => ['Authorization' => 'Bearer 1234', 'Extra-Key' => 'Extra-value']*
+- **follow:** Follow the redirect if a 301 http code occurs.
 - **httpquery:** Instead of passing the params on the $params array on the function call, you could pass a string with the http query format directly (For example, a=b&c=d&e[]=f). This will override the standard way of sending parameters.
 - **bg:** Sends an asynchronous curl, performing the unix command *curl -s "http://www.url.com" > /dev/null 2>&1 &*. It also accepts the parameters *timeout*, *connect_timeout*, *keep_alive*, *headers*
 - **jsondecode_output:** Performs a json_decode over the body of the return of the request.
