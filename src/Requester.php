@@ -170,7 +170,7 @@ class Requester {
                 $output = 'JSON Decode Error: '.json_last_error_msg();
                 $output .= '<h4>Response</h4><pre>'.print_r($output_copy,true).'</pre>';
             } else {
-                $output = $aux;
+                $output = print_r($aux,true);
             }
         }
         
