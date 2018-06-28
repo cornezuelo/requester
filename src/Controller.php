@@ -33,14 +33,15 @@ switch ($_REQUEST['action']) {
             if ($data['type-params'] == 'httpquery' && !empty($data['textarea-params-httpquery-content'])) {
                 $options['httpquery'] = $data['textarea-params-httpquery-content'];
             }            
-            $res = Requester::request($data['request-method'],$data['request-uri'],$params,$options);                                 
-            if (isset($data['request-jsondecodeoutput'])) {                                                                
-                    $aux = json_decode($res,true);
-                    if (isset($aux['output'])) {                        
-                        $aux['output'] = print_r($aux['output'],true);
-                        $res = json_encode($aux);
+            $res = Requester::request($data['request-method'],$data['request-uri'],$params,$options);            			
+			$dec = json_decode($res,true);
+			file_put_contents('../output.html',$dec['output']);
+            if (isset($data['request-jsondecodeoutput'])) {                                                                                    
+                    if (isset($dec['output'])) {                        
+                        $dec['output'] = print_r($dec['output'],true);
+                        $res = json_encode($dec);
                     }                                                            
-            }
+            }						
             print_r($res);die();    
         }    
         break;

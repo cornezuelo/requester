@@ -209,12 +209,14 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'load' && isset($_REQUE
             <div class="col">
                 <nav>
                   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-response-tab" data-toggle="tab" href="#nav-response" role="tab" aria-controls="nav-response" aria-selected="true">Response</a>
+                    <a class="nav-item nav-link active" id="nav-response-tab" data-toggle="tab" href="#nav-response" role="tab" aria-controls="nav-response" aria-selected="true">RAW</a>
+					<a class="nav-item nav-link" id="nav-html-tab" data-toggle="tab" href="#nav-html" role="tab" aria-controls="nav-html" aria-selected="true">HTML</a>
                     <a class="nav-item nav-link" id="nav-curlinfo-tab" data-toggle="tab" href="#nav-curlinfo" role="tab" aria-controls="nav-curlinfo" aria-selected="false">Curl Info</a>                
                   </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-response" role="tabpanel" aria-labelledby="nav-response-tab"><br><i class="fas fa-plug fa-5x"></i></div>
+					<div class="tab-pane fade" id="nav-html" role="tabpanel" aria-labelledby="nav-html-tab"><br><i class="fas fa-plug fa-5x"></i></div>
                     <div class="tab-pane fade" id="nav-curlinfo" role="tabpanel" aria-labelledby="nav-curlinfo-tab"><br><i class="fas fa-plug fa-5x"></i></div>
                 </div>            
             </div>
@@ -289,6 +291,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'load' && isset($_REQUE
            event.preventDefault(); 
            $('#nav-curlinfo').html('');
            $('#nav-response').html('');
+		   $('#nav-html').html('');
            _html = $("#div-content").html();
            $('#div-content').html('<div align="center"><i class="fas fa-cog fa-spin fa-10x"></i></div>');
            $('#btn-submit').attr('disabled',true);
@@ -304,9 +307,11 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'load' && isset($_REQUE
                 _info += '</ul>';                
                 $('#nav-curlinfo').html(_info);
                 $('#nav-response').html('<br><textarea class="form-control response" rows="25" style="width:100%" id="textarea-content" onclick="$(this).select()">'+e.output+'</textarea>');                
+				$('#nav-html').html('<br><div style="border-style:solid;border-width:2px;"><iframe src="output.html" style="width:100%;height:580px;" frameborder=0></iframe></div><h4 align="center"><a href="output.html" target="_blank">OPEN HTML RESPONSE</a></h4>');
             } else {                
                 $('#nav-curlinfo').html('<br><h3 align="center">Oooppssss... Error on json response! Maybe enconding problem?</h3>');
                 $('#nav-response').html('<br><h3 align="center">Oooppssss... Error on json response! Maybe enconding problem?</h3><textarea class="form-control response" rows="25" style="width:100%" id="textarea-content">'+e.responseText+'</textarea>');
+				$('#nav-html').html('<br><h3 align="center">Oooppssss... Error on json response! Maybe enconding problem?</h3>');
             }                        
             $('#btn-submit').attr('disabled',false);
            });
