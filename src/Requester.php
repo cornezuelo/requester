@@ -96,7 +96,8 @@ class Requester {
             if (!empty($httpquery)) {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $httpquery);
             }
-        } elseif ($method != "GET") {
+        } 
+        if ($method != "GET") {
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         }
         
