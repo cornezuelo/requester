@@ -92,7 +92,7 @@ class Requester {
             curl_setopt($ch, CURLOPT_POST, 1);
         }
         
-        if ($method == "POST" || $method = "PUT") {                        
+        if ($method == "POST" || $method == "PUT") {                        
             if (!empty($httpquery)) {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $httpquery);
             }
